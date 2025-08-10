@@ -133,6 +133,41 @@ evemensaje {
     }
   </style>
   <style>
+  audio {
+      display: none;
+    }
+	.audio-controls {
+	background-color: #7d577c; /* Morado suave */
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.2em;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s, background-color 0.3s;
+      margin: 10px auto;
+      display: block;
+	  font-family:'Comic Sans MS',cursive;
+    }
+
+    .audio-controls:hover {
+	background-color: #47295a; /* Lila claro al pasar */
+	transform: scale(1.05);
+    }
+
+    .volume-slider {
+	/* [disabled]width: 150px; */
+	/* [disabled]margin-top: 10px; */
+	border: none;
+	/* [disabled]padding: 15px 30px; */
+	font-size: 1.2em;
+	cursor: pointer;
+	transition: transform 0.2s, background-color 0.3s;
+	margin: 10px auto;
+	display: block;
+	font-family: 'Comic Sans MS',cursive;
+    }
   .galeria {
       display: flex;
       flex-wrap: wrap;
@@ -225,12 +260,54 @@ evemensaje {
   <button class="boton" onclick="alert('¡Te quiero mucho y siempre estaré para ti!')">Pequeño Recordatorio</button>
   
 <h2>🎵 MÚSICA 🎵</h2>
+  <div>
   <audio id="musica" loop>
-    <source src="Contenido/Hollow Coves - Coastline - wave of good noise.mp3" type="audio/mpeg">
+    <source src="Contenido/Música.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
   </audio>
-  <button id="playPauseBtn" class="boton">▶️ Reproducir música</button>
-  <input id="volumen" type="range" min="0" max="1" step="0.01" value="1" style="width:100%">
+
+  <button id="playPauseBtn" class="audio-controls">▶️ Reproducir música</button><br>
+  <input id="volumen" class="volume-slider" type="range" min="0" max="1" step="0.01" value="1">
+  <p id="avisoAudio" style="color:white; font-style:italic; display:none; text-align:center">Disfruta de la música, estuve indecisa asi que elegí esta canción 🎵 🎵</p>
+</div>
   
+<script>
+ const audio = document.getElementById('musica');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const volumenSlider = document.getElementById('volumen');
+const avisoAudio = document.getElementById('avisoAudio');
+
+window.addEventListener("load", () => {
+  audio.volume = 1;
+  audio.play().then(() => {
+    avisoAudio.style.display = 'block'; // mostrar siempre
+  }).catch(() => {
+    avisoAudio.style.display = 'block'; // mostrar si autoplay falla
+  });
+});
+
+
+audio.addEventListener("playing", () => {
+  playPauseBtn.innerText = "⏸ Pausar música";
+});
+
+audio.addEventListener("pause", () => {
+  playPauseBtn.innerText = "▶️ Reproducir música";
+});
+
+playPauseBtn.addEventListener('click', () => {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
+
+volumenSlider.addEventListener('input', () => {
+  audio.volume = volumenSlider.value;
+});
+</script>
+
 <h2> ✨ NUESTROS RECUERDOS ✨</h2>
 <div class="galeria">
  <img src="Contenido/Recuerdos (2).jpeg" alt="Foto 1" data-frase="Aquí empieza un recuerdo eterno" onclick="abrirPopupImagen(this)">
@@ -422,5 +499,30 @@ volumenSlider.addEventListener('input', () => {
       document.getElementById("popupMedia").innerHTML = "";
     }
   </script>
+  
+<script>
+  const musica = document.getElementById("musicaFondo");
+  const botonMusica = document.getElementById("btnMusica");
+  const volumenSlider = document.getElementById("volumenMusica");
+
+  musica.volume = 0.5; // volumen inicial
+
+ function toggleMusica() {
+  if (musica.paused) {
+    musica.play().then(() => {
+      botonMusica.textContent = "⏸️ Pausar música";
+    }).catch(error => {
+      console.log("El navegador bloqueó la reproducción:", error);
+    });
+  } else {
+    musica.pause();
+    botonMusica.textContent = "🎵 Reproducir música";
+  }
+}
+
+  function cambiarVolumen() {
+    musica.volume = volumenSlider.value;
+  }
+</script>
 </body>
 </html>
