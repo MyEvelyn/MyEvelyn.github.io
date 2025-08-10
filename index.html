@@ -524,5 +524,11 @@ volumenSlider.addEventListener('input', () => {
     musica.volume = volumenSlider.value;
   }
 </script>
+<script>
+  window.addEventListener('load', () => {
+    // Fuerza un resize event al cargar para aplicar el CSS correctamente
+    window.dispatchEvent(new Event('resize'));
+  });
+</script>
 </body>
 </html>
