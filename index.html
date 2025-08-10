@@ -153,7 +153,9 @@ h2 {
     <img src="https://via.placeholder.com/300x200" alt="recuerdo2">
     <img src="https://via.placeholder.com/300x200" alt="recuerdo3">
   </div>
-  
+  <div id="mensaje" style="text-align:center; font-size:24px; padding:20px; color:#ff69b4; font-family:sans-serif;">
+  💖 ¡Hola Evelyn! Gracias por visitar mi página 💖
+</div>
   <h2>DEJA TU MENSAJE!!</h2>
   <div class="guestbook">
     <form id="guest-form">
@@ -166,7 +168,7 @@ h2 {
 </main>
 
 <footer>
-  Hecho con cariño para ti 💜
+ <p>Hecho con cariño para ti 💜</p>
 </footer>
 
 <script>
@@ -266,6 +268,13 @@ playPauseBtn.addEventListener('click', () => {
 volumenSlider.addEventListener('input', () => {
   audio.volume = volumenSlider.value;
 });
+</script>
+
+<script>
+  // Cambia el mensaje después de unos segundos
+  setTimeout(() => {
+    document.getElementById("mensaje").innerHTML = "✨ Espero que tengas un día maravilloso ✨";
+  }, 3000);
 </script>
 </body>
 </html>
